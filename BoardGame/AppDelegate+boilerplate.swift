@@ -24,6 +24,7 @@ extension BoardGameViewController {
         
         guard let view = self.view as! SKView? else { assertionFailure(); return }
         view.isMultipleTouchEnabled = false
+        view.ignoresSiblingOrder = true
         
         // In case you were wondering where setUpGame is called, it's right
         //  here

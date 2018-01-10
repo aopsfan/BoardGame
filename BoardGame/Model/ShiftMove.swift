@@ -63,7 +63,7 @@ class ShiftMove {
         
         let tile = board.tile(at: startSpace)!
         
-        // Ensure that the next space is on the board
+        // Bail out if the next space isn't on the board
         
         guard let nextSpace = board.space(startSpace, shifted: direction) else { return }
         
@@ -73,20 +73,20 @@ class ShiftMove {
             // If the move succeeds, record it and try to shift again
             
             delta.record(moveFrom: startSpace, to: nextSpace)
-            
             shift(tileAt: nextSpace)
         }
         
         else if tile == board.tile(at: nextSpace) && !hasMerged(to: nextSpace) {
             // If the move fails because of an identical tile that hasn't already
-            //  merged, merge them, record it, and bail out
+            //  merged, merge them and record it
             
             board.place(tile: tile * 2, at: nextSpace)
             board.remove(tileAt: startSpace)
+            delta.record(mergeFrom: startSpace, to: nextSpace)
+            
+            // Update the score
             
             score += tile * 2
-            
-            delta.record(mergeFrom: startSpace, to: nextSpace)
         }
     }
     

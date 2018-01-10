@@ -22,7 +22,8 @@ class BoardGameViewController: UIViewController {
     
     
     
-    // setUpGame(view:rows:cols:) -- Basic setup of the scene, swipe recognizers, and model
+    // setUpGame(view:rows:cols:) -- Basic setup of the scene, swipe recognizers,
+    //  and model. Referenced in 'AppDelegate+boilerplate.swift'.
     
     func setUpGame(view: SKView, rows: Int, cols: Int) {
         // Add a gesture recognizer for each direction to the view
@@ -84,26 +85,22 @@ extension BoardGameViewController: GameplayDelegate {
         //  scene
         
         let playingTile = BoardGameTile(row: space.row, col: space.col, value: tile)
-        scene.addTile(playingTile)
+        scene.animateNewTile(playingTile)
     }
     
     func gameDidMove(from startSpace: Space, to endSpace: Space) {
         // Move the appropriate BoardGameTile. Since this isn't a merge, we won't
         //  need to remove any tiles.
         
-        scene.moveTile(from: startSpace, to: endSpace, removeAfter: false)
+        scene.animateTile(from: startSpace, to: endSpace, newValue: nil, removeAfter: false)
     }
     
     func gameDidMerge(_ topSpace: Space, and bottomSpace: Space, to endSpace: Space, newValue: Int) {
-        // Update the value of the top tile
-        
-        scene.setValue(newValue, forTileAt: topSpace)
-        
         // Move the bottom tile first. The scene will not change the reference
         //  space for the removed BoardGameTile, avoiding a mindbending pitfall.
         
-        scene.moveTile(from: bottomSpace, to: endSpace, removeAfter: true)
-        scene.moveTile(from: topSpace, to: endSpace, removeAfter: false)
+        scene.animateTile(from: bottomSpace, to: endSpace, newValue: nil, removeAfter: true)
+        scene.animateTile(from: topSpace, to: endSpace, newValue: newValue, removeAfter: false)
     }
     
     func gameScoreDidChange(newScore: Int) {

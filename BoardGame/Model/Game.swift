@@ -1,20 +1,5 @@
 import Foundation
 
-// GameplayDelegate -- Callback protocol for visible game changes. At this
-//  level in the program's hierarchy, these callbacks should only be fired
-//  once per tile (no "stepwise" changes). This allows the conformer to
-//  directly correlate a call like gameDidMove(from:to:hidden:) to a
-//  single view update.
-
-protocol GameplayDelegate {
-    func gameDidPlace(tile: Int, at space: Space)
-    func gameDidMove(from startSpace: Space, to endSpace: Space)
-    func gameDidMerge(_ topSpace: Space, and bottomSpace: Space, to endSpace: Space, newValue: Int)
-    func gameScoreDidChange(newScore: Int)
-}
-
-
-
 // Game -- Entry-point for gameplay interaction within the model
 
 class Game {

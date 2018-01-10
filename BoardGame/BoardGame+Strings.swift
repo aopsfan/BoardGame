@@ -1,7 +1,7 @@
 import Foundation
 
-// Objects conforming to this protocol are automatically translated
-//  to text inside formatted strings
+// Objects conforming to CustomStringConvertible are automatically
+//  translated to text inside formatted strings
 
 extension Space: CustomStringConvertible {
     var description: String {

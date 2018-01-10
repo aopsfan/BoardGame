@@ -1,23 +1,5 @@
 import Foundation
 
-// Space -- Structure that describes an index path (for a tile or an empty
-//  space)
-
-struct Space {
-    let row: Int, col: Int
-    
-    // distance(to:) -- Simple Pythagorean implementation
-    
-    func distance(to other: Space) -> Double {
-        let rowChange = Double(row - other.row)
-        let colChange = Double(col - other.col)
-        
-        return sqrt(pow(rowChange, 2) + pow(colChange, 2))
-    }
-}
-
-
-
 // Board -- describes the state of the board
 
 class Board {
@@ -85,7 +67,6 @@ class Board {
         //  numbers of rows and columns.
         
         var spaces = [Space]()
-        
         for row in 1...rows { for col in 1...columns {
             spaces.append(Space(row: row, col: col))
             } }
@@ -153,10 +134,10 @@ extension Board {
         // Clear the tile at the starting space and assign its value to the
         //  end space
         
-        let frontTile = tile(at: startSpace)
-        
+        tiles[endSpace] = tile(at: startSpace)
         tiles[startSpace] = nil
-        tiles[endSpace] = frontTile
+        
+        // If we got this far, the tile must have moved. Return true.
         
         return true
     }

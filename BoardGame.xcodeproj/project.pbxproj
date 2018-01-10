@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE5257F71FF8197500BDC75A /* AppDelegate+BoilerPlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5257F61FF8197500BDC75A /* AppDelegate+BoilerPlate.swift */; };
+		BE5257F71FF8197500BDC75A /* AppDelegate+boilerplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5257F61FF8197500BDC75A /* AppDelegate+boilerplate.swift */; };
 		BE5257FF1FF8197500BDC75A /* BoardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5257FE1FF8197500BDC75A /* BoardGameViewController.swift */; };
 		BE5258021FF8197500BDC75A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE5258001FF8197500BDC75A /* Main.storyboard */; };
 		BE5258041FF8197500BDC75A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE5258031FF8197500BDC75A /* Assets.xcassets */; };
@@ -16,9 +16,16 @@
 		BE52581D1FF8197600BDC75A /* BoardGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52581C1FF8197600BDC75A /* BoardGameUITests.swift */; };
 		BE52582B1FF81A3B00BDC75A /* BoardGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE52582A1FF81A3B00BDC75A /* BoardGameScene.swift */; };
 		BE921C592002BB440029FFB3 /* BoardGame+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C582002BB440029FFB3 /* BoardGame+Equatable.swift */; };
-		BE921C5B2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C5A2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift */; };
-		BE921C5C2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C5A2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift */; };
+		BE921C5B2002BBAD0029FFB3 /* BoardGame+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C5A2002BBAD0029FFB3 /* BoardGame+Strings.swift */; };
+		BE921C5C2002BBAD0029FFB3 /* BoardGame+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C5A2002BBAD0029FFB3 /* BoardGame+Strings.swift */; };
 		BE921C5D2002BBC10029FFB3 /* BoardGame+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE921C582002BB440029FFB3 /* BoardGame+Equatable.swift */; };
+		BED677B020056B230018306D /* SpriteFadeInAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677AF20056B230018306D /* SpriteFadeInAction.swift */; };
+		BED677B220059B240018306D /* BoardGame+protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B120059B240018306D /* BoardGame+protocols.swift */; };
+		BED677B320059B240018306D /* BoardGame+protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B120059B240018306D /* BoardGame+protocols.swift */; };
+		BED677B620059F470018306D /* SpriteMoveAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B520059F470018306D /* SpriteMoveAction.swift */; };
+		BED677B820059F4F0018306D /* SpriteMoveBehindAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B720059F4F0018306D /* SpriteMoveBehindAction.swift */; };
+		BED677BB2005A3A40018306D /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677BA2005A3A40018306D /* Space.swift */; };
+		BED677BC2005A3A40018306D /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677BA2005A3A40018306D /* Space.swift */; };
 		BEF3A0F81FFB163300354075 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A0F71FFB163300354075 /* Direction.swift */; };
 		BEF3A0F91FFB163300354075 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A0F71FFB163300354075 /* Direction.swift */; };
 		BEF3A0FB1FFB164900354075 /* BoardDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A0FA1FFB164900354075 /* BoardDelta.swift */; };
@@ -51,7 +58,7 @@
 
 /* Begin PBXFileReference section */
 		BE5257F31FF8197500BDC75A /* BoardGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE5257F61FF8197500BDC75A /* AppDelegate+BoilerPlate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+BoilerPlate.swift"; sourceTree = "<group>"; };
+		BE5257F61FF8197500BDC75A /* AppDelegate+boilerplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+boilerplate.swift"; sourceTree = "<group>"; };
 		BE5257FE1FF8197500BDC75A /* BoardGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGameViewController.swift; sourceTree = "<group>"; };
 		BE5258011FF8197500BDC75A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE5258031FF8197500BDC75A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +72,12 @@
 		BE52581E1FF8197600BDC75A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE52582A1FF81A3B00BDC75A /* BoardGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardGameScene.swift; sourceTree = "<group>"; };
 		BE921C582002BB440029FFB3 /* BoardGame+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardGame+Equatable.swift"; sourceTree = "<group>"; };
-		BE921C5A2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardGame+CustomStringConvertible.swift"; sourceTree = "<group>"; };
+		BE921C5A2002BBAD0029FFB3 /* BoardGame+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardGame+Strings.swift"; sourceTree = "<group>"; };
+		BED677AF20056B230018306D /* SpriteFadeInAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteFadeInAction.swift; sourceTree = "<group>"; };
+		BED677B120059B240018306D /* BoardGame+protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardGame+protocols.swift"; sourceTree = "<group>"; };
+		BED677B520059F470018306D /* SpriteMoveAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteMoveAction.swift; sourceTree = "<group>"; };
+		BED677B720059F4F0018306D /* SpriteMoveBehindAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteMoveBehindAction.swift; sourceTree = "<group>"; };
+		BED677BA2005A3A40018306D /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 		BEF3A0F71FFB163300354075 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		BEF3A0FA1FFB164900354075 /* BoardDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardDelta.swift; sourceTree = "<group>"; };
 		BEF3A0FD1FFB16C000354075 /* ShiftMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftMove.swift; sourceTree = "<group>"; };
@@ -122,12 +134,14 @@
 		BE5257F51FF8197500BDC75A /* BoardGame */ = {
 			isa = PBXGroup;
 			children = (
+				BEF3A0F71FFB163300354075 /* Direction.swift */,
+				BED677B120059B240018306D /* BoardGame+protocols.swift */,
+				BE5257F61FF8197500BDC75A /* AppDelegate+boilerplate.swift */,
 				BE921C582002BB440029FFB3 /* BoardGame+Equatable.swift */,
-				BE921C5A2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift */,
-				BE5257F61FF8197500BDC75A /* AppDelegate+BoilerPlate.swift */,
+				BE921C5A2002BBAD0029FFB3 /* BoardGame+Strings.swift */,
 				BEF3A0F61FFB160800354075 /* Model */,
 				BEF3A0F51FFB15EB00354075 /* Controller */,
-				BEF3A0F41FFB15C800354075 /* View */,
+				BEF3A0F41FFB15C800354075 /* Scene */,
 				BE5258001FF8197500BDC75A /* Main.storyboard */,
 				BE5258031FF8197500BDC75A /* Assets.xcassets */,
 				BE5258051FF8197500BDC75A /* LaunchScreen.storyboard */,
@@ -154,13 +168,34 @@
 			path = BoardGameUITests;
 			sourceTree = "<group>";
 		};
-		BEF3A0F41FFB15C800354075 /* View */ = {
+		BED677B420059B7C0018306D /* Sprite Actions */ = {
 			isa = PBXGroup;
 			children = (
+				BED677AF20056B230018306D /* SpriteFadeInAction.swift */,
+				BED677B520059F470018306D /* SpriteMoveAction.swift */,
+				BED677B720059F4F0018306D /* SpriteMoveBehindAction.swift */,
+			);
+			path = "Sprite Actions";
+			sourceTree = "<group>";
+		};
+		BED677B92005A33D0018306D /* Board Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				BED677BA2005A3A40018306D /* Space.swift */,
+				BEF3A1001FFB16DC00354075 /* Board.swift */,
+				BEF3A0FA1FFB164900354075 /* BoardDelta.swift */,
+			);
+			path = "Board Stuff";
+			sourceTree = "<group>";
+		};
+		BEF3A0F41FFB15C800354075 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				BED677B420059B7C0018306D /* Sprite Actions */,
 				BE52582A1FF81A3B00BDC75A /* BoardGameScene.swift */,
 				BEF59ABE1FF98A0400F734B1 /* BoardGameTile.swift */,
 			);
-			path = View;
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		BEF3A0F51FFB15EB00354075 /* Controller */ = {
@@ -174,11 +209,9 @@
 		BEF3A0F61FFB160800354075 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BED677B92005A33D0018306D /* Board Stuff */,
 				BEF3A1031FFB16EC00354075 /* Game.swift */,
 				BEF3A0FD1FFB16C000354075 /* ShiftMove.swift */,
-				BEF3A0FA1FFB164900354075 /* BoardDelta.swift */,
-				BEF3A1001FFB16DC00354075 /* Board.swift */,
-				BEF3A0F71FFB163300354075 /* Direction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -317,15 +350,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED677B020056B230018306D /* SpriteFadeInAction.swift in Sources */,
+				BED677B220059B240018306D /* BoardGame+protocols.swift in Sources */,
+				BED677BB2005A3A40018306D /* Space.swift in Sources */,
 				BEF3A0FE1FFB16C000354075 /* ShiftMove.swift in Sources */,
+				BED677B620059F470018306D /* SpriteMoveAction.swift in Sources */,
+				BED677B820059F4F0018306D /* SpriteMoveBehindAction.swift in Sources */,
 				BE921C592002BB440029FFB3 /* BoardGame+Equatable.swift in Sources */,
-				BE921C5B2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift in Sources */,
+				BE921C5B2002BBAD0029FFB3 /* BoardGame+Strings.swift in Sources */,
 				BE52582B1FF81A3B00BDC75A /* BoardGameScene.swift in Sources */,
 				BE5257FF1FF8197500BDC75A /* BoardGameViewController.swift in Sources */,
 				BEF59ABF1FF98A0400F734B1 /* BoardGameTile.swift in Sources */,
 				BEF3A1041FFB16EC00354075 /* Game.swift in Sources */,
 				BEF3A0F81FFB163300354075 /* Direction.swift in Sources */,
-				BE5257F71FF8197500BDC75A /* AppDelegate+BoilerPlate.swift in Sources */,
+				BE5257F71FF8197500BDC75A /* AppDelegate+boilerplate.swift in Sources */,
 				BEF3A1011FFB16DC00354075 /* Board.swift in Sources */,
 				BEF3A0FB1FFB164900354075 /* BoardDelta.swift in Sources */,
 			);
@@ -335,12 +373,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED677BC2005A3A40018306D /* Space.swift in Sources */,
 				BEF3A0FC1FFB164900354075 /* BoardDelta.swift in Sources */,
 				BEF3A0FF1FFB16C000354075 /* ShiftMove.swift in Sources */,
-				BE921C5C2002BBAD0029FFB3 /* BoardGame+CustomStringConvertible.swift in Sources */,
+				BE921C5C2002BBAD0029FFB3 /* BoardGame+Strings.swift in Sources */,
 				BEF3A1051FFB16EC00354075 /* Game.swift in Sources */,
 				BEF3A1021FFB16DC00354075 /* Board.swift in Sources */,
 				BE921C5D2002BBC10029FFB3 /* BoardGame+Equatable.swift in Sources */,
+				BED677B320059B240018306D /* BoardGame+protocols.swift in Sources */,
 				BE5258121FF8197600BDC75A /* BoardDeltaTests.swift in Sources */,
 				BEF3A0F91FFB163300354075 /* Direction.swift in Sources */,
 			);
