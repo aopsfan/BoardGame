@@ -23,7 +23,7 @@ class Board {
     let rows: Int
     let columns: Int
     
-    var tiles = [Space: Int]()
+    var pieces = [Space: BoardPiece]()
     
     init(_ rows: Int, _ columns: Int) {
         self.rows = rows
@@ -38,8 +38,8 @@ class Board {
     
     // tile(at:) -- Lookup the provided space in the tiles dictionary
     
-    func tile(at space: Space) -> Int? {
-        return tiles[space]
+    func piece(at space: Space) -> BoardPiece? {
+        return pieces[space]
     }
     
     // space(:shifted:) -- Return the space, shifted once in the provided
@@ -77,13 +77,13 @@ class Board {
     func emptySpaces() -> [Space] {
         // Filter out all spaces where a tile is found
         
-        return allSpaces.filter { !contains(tileAt: $0) }
+        return allSpaces.filter { !contains(pieceAt: $0) }
     }
     
     func filledSpaces() -> [Space] {
         // Return only the spaces where a tile is found
         
-        return allSpaces.filter { contains(tileAt: $0) }
+        return allSpaces.filter { contains(pieceAt: $0) }
     }
     
     func contains(spaceAt space: Space) -> Bool {
@@ -98,10 +98,10 @@ class Board {
         return emptySpaces().contains(space)
     }
     
-    func contains(tileAt space: Space) -> Bool {
+    func contains(pieceAt space: Space) -> Bool {
         // Return whether any tile was found at the provided space
         
-        return tile(at: space) != nil
+        return piece(at: space) != nil
     }
 }
 
@@ -118,15 +118,15 @@ extension Board {
     
     // place(tile:at:) -- Assign a tile value to a particular space
     
-    func place(tile: Int, at space: Space) {
-        tiles[space] = tile
+    func place(piece: BoardPiece, at space: Space) {
+        pieces[space] = piece
     }
     
     // move(tileAt:toEmptySpace:) -- If the end space is not blocked, adjust
     //  the tiles dictionary to reflect a moved tile. Return whether the move
     //  was successful.
     
-    func move(tileAt startSpace: Space, toEmptySpace endSpace: Space) -> Bool {
+    func move(pieceAt startSpace: Space, toEmptySpace endSpace: Space) -> Bool {
         // First, ensure that the end space is empty
         
         guard contains(emptySpaceAt: endSpace) else { return false }
@@ -134,8 +134,8 @@ extension Board {
         // Clear the tile at the starting space and assign its value to the
         //  end space
         
-        tiles[endSpace] = tile(at: startSpace)
-        tiles[startSpace] = nil
+        pieces[endSpace] = piece(at: startSpace)
+        pieces[startSpace] = nil
         
         // If we got this far, the tile must have moved. Return true.
         
@@ -144,8 +144,8 @@ extension Board {
     
     // remove(tileAt:) -- Clear the tile at the provided space
     
-    func remove(tileAt space: Space) {
-        tiles[space] = nil
+    func remove(pieceAt space: Space) {
+        pieces[space] = nil
     }
 }
 

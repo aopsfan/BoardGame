@@ -33,4 +33,3 @@ protocol BoardGameSpriteAction {
     
     func run(completion: @escaping () -> ())
 }
-

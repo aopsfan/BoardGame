@@ -3,7 +3,7 @@ import SpriteKit
 
 // SpriteMoveAction -- Moves an SKSpriteNode
 
-class SpriteMoveAction: BoardGameSpriteAction {
+class UpdateSpriteAction: BoardGameSpriteAction {
     
     // BoardGameSpriteAction
     

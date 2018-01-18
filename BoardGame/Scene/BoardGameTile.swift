@@ -8,17 +8,11 @@ class BoardGameTile {
     
     var row: Int
     var col: Int
-    var value: Int
     
     var sprite: SKSpriteNode?
     
-    init(row: Int, col: Int, value: Int) {
+    init(row: Int, col: Int) {
         self.row = row
         self.col = col
-        self.value = value
-    }
-    
-    func imageName() -> String {
-        return "Tile\(value)"
     }
 }

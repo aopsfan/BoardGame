@@ -56,5 +56,15 @@ extension Direction {
     class func left() -> Direction {
         return Direction("left", xStep: -1, yStep: 0)
     }
+    
+    //
+    
+    class func diagonalNE() -> Direction {
+        return Direction("up-right", xStep: 1, yStep: 1)
+    }
+    
+    class func diagonalNW() -> Direction {
+        return Direction("up-left", xStep: -1, yStep: 1)
+    }
 }
 

@@ -60,7 +60,10 @@ class Game {
                 // If the move partial is two-to-one, we have a merge. First
                 //  we obtain the resulting tile value from the board.
                 
-                guard let mergeValue = board.tile(at: endSpace) else { assertionFailure(); return }
+                guard let mergeValue = board.piece(at: endSpace)?.rawValue else {
+                    assertionFailure()
+                    return
+                }
                 
                 // Next, sort the two spaces according to their distance from
                 //  the end space. The closer space will always be covered.
@@ -84,6 +87,12 @@ class Game {
             score += shift.score
             delegate.gameScoreDidChange(newScore: score)
             
+            // 15x20
+            /*
+            let numNewTiles = min(board.emptySpaces().count, 20)
+            for _ in 1...numNewTiles { placeTile() } */
+            
+            // 4x4
             placeTile()
         }
     }
@@ -100,7 +109,7 @@ class Game {
         let tile = randomTile()
         let space = randomSpace()
         
-        board.place(tile: tile, at: space)
+        board.place(piece: BoardPiece(tile), at: space)
         
         delegate.gameDidPlace(tile: tile, at: space)
     }
@@ -116,13 +125,26 @@ class Game {
         return spaces[Int(spaceIndex)]
     }
     
+    // 15x20
+    /*
+    private func randomTile() -> Int {
+        let seed = arc4random() % 128
+        
+        if seed < 4 { return 16 }
+        else if seed < 10 { return 8 }
+        else if seed < 32 { return 4 }
+        
+        return 2
+    } */
+    
+    // 4x4
     private func randomTile() -> Int {
         // Give the tile a 10% chance of being a 4
-        
+
         let tileIs4 = arc4random() % 10 == 1
-        
+
         // Return 2 or 4
-        
+
         return tileIs4 ? 4 : 2
     }
 }

@@ -2,9 +2,9 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-// BoardGameViewController -- Literally the only view controller in the app
+// BoardGameViewController -- Literally (NOT) the only view controller in the app
 
-class BoardGameViewController: UIViewController {
+class BoardGameViewController: BoilerplateViewController {
     
     // BoardGameViewController
     //  - scene
@@ -72,6 +72,23 @@ class BoardGameViewController: UIViewController {
         default: assertionFailure()
         }
     }
+    
+    
+    
+    //////////
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        guard let view = self.view as! SKView? else { assertionFailure(); return }
+        setUpGame(view: view, rows: 4, cols: 4)
+    }
+    
+    private func resourceName(forTileValue value: Int) -> String {
+        return "Tile\(value)"
+    }
 }
 
 
@@ -84,23 +101,27 @@ extension BoardGameViewController: GameplayDelegate {
         // Make a new BoardGameTile with the provided data and add it to the
         //  scene
         
-        let playingTile = BoardGameTile(row: space.row, col: space.col, value: tile)
-        scene.animateNewTile(playingTile)
+        let playingTile = BoardGameTile(row: space.row, col: space.col)
+        let imageName = resourceName(forTileValue: tile)
+            
+        scene.drawSprite(playingTile, imageName: imageName, animated: true)
     }
     
     func gameDidMove(from startSpace: Space, to endSpace: Space) {
         // Move the appropriate BoardGameTile. Since this isn't a merge, we won't
         //  need to remove any tiles.
         
-        scene.animateTile(from: startSpace, to: endSpace, newValue: nil, removeAfter: false)
+        scene.animateTile(from: startSpace, to: endSpace, imageName: nil, removeAfter: false)
     }
     
     func gameDidMerge(_ topSpace: Space, and bottomSpace: Space, to endSpace: Space, newValue: Int) {
         // Move the bottom tile first. The scene will not change the reference
         //  space for the removed BoardGameTile, avoiding a mindbending pitfall.
         
-        scene.animateTile(from: bottomSpace, to: endSpace, newValue: nil, removeAfter: true)
-        scene.animateTile(from: topSpace, to: endSpace, newValue: newValue, removeAfter: false)
+        let imageName = resourceName(forTileValue: newValue)
+        
+        scene.animateTile(from: bottomSpace, to: endSpace, imageName: nil, removeAfter: true)
+        scene.animateTile(from: topSpace, to: endSpace, imageName: imageName, removeAfter: false)
     }
     
     func gameScoreDidChange(newScore: Int) {

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // BoardGameViewController -- UIViewController boiler-plate code
 
-extension BoardGameViewController {
+class BoilerplateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +25,6 @@ extension BoardGameViewController {
         guard let view = self.view as! SKView? else { assertionFailure(); return }
         view.isMultipleTouchEnabled = false
         view.ignoresSiblingOrder = true
-        
-        // In case you were wondering where setUpGame is called, it's right
-        //  here
-        
-        setUpGame(view: view, rows: 4, cols: 4)
     }
     
     override var shouldAutorotate: Bool {

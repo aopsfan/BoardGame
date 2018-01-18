@@ -5,7 +5,7 @@ import SpriteKit
 //  sprite to the background and removes it from its parent node after the
 //  animation
 
-class SpriteMoveBehindAction: SpriteMoveAction {
+class MoveSpriteToBackAction: UpdateSpriteAction {
     
     let backgroundZ = CGFloat(5)
     

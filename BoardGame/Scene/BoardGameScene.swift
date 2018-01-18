@@ -16,14 +16,26 @@ class BoardGameScene: SKScene {
     //  > animateNewTile(:)
     //  > animateTile(from:to:newValue:removeAfter:)
     
-    let animationDuration = 0.1
-    
+    let animationDuration = 0.2
     let tileSize = CGSize(width: 50, height: 50)
     let tileCushion = CGFloat(1)
     
     let board = SKNode()
     
     var tiles = [BoardGameTile]()
+    
+    var rows: Int!
+    var columns: Int!
+    
+    lazy var tileBounds: CGSize = {
+        return CGSize(width: tileSize.width + tileCushion,
+                      height: tileSize.height + tileCushion)
+    }()
+    
+    lazy var boardBounds: CGSize = {
+        return CGSize(width: tileBounds.width * CGFloat(columns),
+                      height: tileBounds.height * CGFloat(rows))
+    }()
     
     required init?(coder aDecoder: NSCoder) {
         // This doesn't make any sense to me either
@@ -32,6 +44,8 @@ class BoardGameScene: SKScene {
     
     init(rows: Int, cols: Int, size: CGSize) {
         super.init(size: size)
+        self.rows = rows
+        self.columns = cols
         
         // Anchor child layers to the middle of the screen
         
@@ -56,13 +70,20 @@ class BoardGameScene: SKScene {
     
     
     
+    func positionRange(forColumn column: Int) -> [CGPoint] {
+        let min = positionOnBoard(ofRow: 0, inCol: column)
+        let max = positionOnBoard(ofRow: 0, inCol: column + 1)
+        
+        return [min, max]
+    }
+    
     // animateNewTile(:) -- Store the new BoardGameTile, set up its sprite,
     //  and add it to the scene with animation
     
-    func animateNewTile(_ tile: BoardGameTile) {
+    func drawSprite(_ tile: BoardGameTile, imageName: String, animated: Bool) {
         // Initialize and set up the sprite
         
-        let sprite = SKSpriteNode(imageNamed: tile.imageName())
+        let sprite = SKSpriteNode(imageNamed: imageName)
         sprite.size = tileSize
         
         // Add the sprite reference to the BoardGameTile, and add
@@ -74,10 +95,11 @@ class BoardGameScene: SKScene {
         // Calculate the expected position of the sprite and instantiate
         //  a new sprite action to fade the tile in
         
-        let position = self.position(ofRow: tile.row, inCol: tile.col)
-        let action = SpriteFadeInAction(position: position, node: board)
+        let position = self.positionOnBoard(ofRow: tile.row, inCol: tile.col)
+        let action = AddSpriteAction(position: position, node: board)
         action.sprite = sprite
         action.duration = animationDuration
+        action.animated = animated
         
         // Run the fade-in action
         
@@ -88,7 +110,7 @@ class BoardGameScene: SKScene {
     
     // animateTile(from:to:newValue:removeAfter:) -- Animate the indicated tile movement
     
-    func animateTile(from startSpace: Space, to endSpace: Space, newValue: Int?, removeAfter: Bool) {
+    func animateTile(from startSpace: Space, to endSpace: Space, imageName imageNameOrNil: String?, removeAfter: Bool) {
         // Fetch the tile and sprite. Do a couple sanity checks while we're
         //  at it.
         
@@ -98,14 +120,13 @@ class BoardGameScene: SKScene {
         // Calculate the final position of the tile, and instantiate a new
         //  SKTexture to be set if needed
         
-        let newPosition = position(ofRow: endSpace.row, inCol: endSpace.col)
+        let newPosition = positionOnBoard(ofRow: endSpace.row, inCol: endSpace.col)
         var texture: SKTexture? = nil
         
-        if let value = newValue {
+        if let imageName = imageNameOrNil {
             // If the value needs to be changed, initialize the texture
             
-            tile.value = value
-            texture = SKTexture(imageNamed: tile.imageName())
+            texture = SKTexture(imageNamed: imageName)
         }
 
         if removeAfter {
@@ -113,7 +134,7 @@ class BoardGameScene: SKScene {
             //  the animation. This action will automatically remove the sprite
             //  from the tiles layer.
             
-            let action = SpriteMoveBehindAction(position: newPosition, texture: texture)
+            let action = MoveSpriteToBackAction(position: newPosition, texture: texture)
             action.sprite = sprite
             action.duration = animationDuration
             
@@ -128,7 +149,7 @@ class BoardGameScene: SKScene {
             //  in the new texture (which is nil if the tile's value hasn't
             //  changed).
             
-            let action = SpriteMoveAction(position: newPosition, texture: texture)
+            let action = UpdateSpriteAction(position: newPosition, texture: texture)
             action.sprite = sprite
             action.duration = animationDuration
             
@@ -142,20 +163,29 @@ class BoardGameScene: SKScene {
         }
     }
     
+    func approximatedColumn(forPoint point: CGPoint) -> Int? {
+        let indent = (size.width - boardBounds.width) / 2.0
+        let adjustedX = point.x - indent
+        
+        guard adjustedX >= 0 else { return nil }
+        
+        return Int(adjustedX / tileBounds.width) + 1
+    }
     
+
     
     //////////
     
     
     
-    private func position(ofRow row: Int, inCol col: Int) -> CGPoint {
+    private func positionOnBoard(ofRow row: Int, inCol col: Int) -> CGPoint {
         // Do some math to convert a row and column to a point on the view
         
         return CGPoint(
             x: tileSize.width * CGFloat(col) + tileCushion * CGFloat(col - 1) - tileSize.width / 2,
             y: tileSize.height * CGFloat(row) + tileCushion * CGFloat(row - 1) - tileSize.height / 2)
     }
-    
+
     private func tile(forRow row: Int, inCol col: Int) -> BoardGameTile? {
         // Search the tiles array for a BoardGameTile at the specified position
         
