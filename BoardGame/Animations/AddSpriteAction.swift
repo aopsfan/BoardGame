@@ -3,7 +3,7 @@ import SpriteKit
 
 // SpriteFadeInAction -- fades in an SKSpriteNode
 
-class AddSpriteAction: BoardGameSpriteAction {
+class AddSpriteAction: GameSceneSpriteAction {
     
     // BoardGameSpriteAction
     

@@ -14,7 +14,7 @@ extension Space: Equatable, Hashable {
     }
 }
 
-extension BoardPiece: Equatable, Hashable {
+extension Piece: Equatable, Hashable {
     var hashValue: Int {
         if let player = self.player {
             return player.descriptor.hashValue ^ rawValue
@@ -30,6 +30,6 @@ func ==(lhs: Space, rhs: Space) -> Bool {
     return lhs.row == rhs.row && lhs.col == rhs.col
 }
 
-func ==(lhs: BoardPiece, rhs: BoardPiece) -> Bool {
+func ==(lhs: Piece, rhs: Piece) -> Bool {
     return lhs.player === rhs.player && lhs.hashValue == rhs.hashValue
 }

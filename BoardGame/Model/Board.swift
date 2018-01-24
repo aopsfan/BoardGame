@@ -23,7 +23,7 @@ class Board {
     let rows: Int
     let columns: Int
     
-    var pieces = [Space: BoardPiece]()
+    var pieces = [Space: Piece]()
     
     init(_ rows: Int, _ columns: Int) {
         self.rows = rows
@@ -38,7 +38,7 @@ class Board {
     
     // tile(at:) -- Lookup the provided space in the tiles dictionary
     
-    func piece(at space: Space) -> BoardPiece? {
+    func piece(at space: Space) -> Piece? {
         return pieces[space]
     }
     
@@ -118,7 +118,7 @@ extension Board {
     
     // place(tile:at:) -- Assign a tile value to a particular space
     
-    func place(piece: BoardPiece, at space: Space) {
+    func place(piece: Piece, at space: Space) {
         pieces[space] = piece
     }
     

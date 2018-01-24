@@ -1,9 +1,5 @@
 import Foundation
 
-protocol ConnectFourInspectorDelegate {
-    func inspector(_ inspector: ConnectFourInspector, indicatesWinner winner: Player, winningSequence: [Space])
-}
-
 // ConnectFourInspector -- Determines whether a Connect Four game has
 //  ended
 
@@ -37,20 +33,36 @@ class ConnectFourInspector {
     // inspect() -- Determine whether the game has ended
     
     func inspect() {
+        // Store a reference to a space. Initially, this is the bottom-
+        //  left space, but as the function progresses, this variable
+        //  is reassigned.
+        
         var space: Space? = Space(row: 1, col: 1)
+        
+        // Define a variable that stores the winning sequence (default
+        //  is nil)
+        
         var winningSequence: [Space]? = nil
         
         while winningSequence == nil && space != nil {
+            // Keep checking for a winning sequence while the reference
+            //  space is on the board
+            
             winningSequence = directions.reduce(winningSequence) { (sequence, direction) in
                 return sequence ?? self.sequence(inDirection: direction, origin: space!)
             }
+            
+            // Change the space reference
             
             space = self.space(following: space!)
         }
         
         if let sequence = winningSequence {
-            guard let winner = board.piece(at: sequence[0])?.player else { assertionFailure(); return }
+            // If there's a winning sequence, deduce the game winner
+            //  using the sequence's first space, then notify the
+            //  delegate
             
+            guard let winner = board.piece(at: sequence[0])?.player else { assertionFailure(); return }
             delegate.inspector(self, indicatesWinner: winner, winningSequence: sequence)
         }
     }
@@ -67,6 +79,7 @@ class ConnectFourInspector {
     //  the next row.
     
     private func space(following space: Space) -> Space? {
+        
         guard let adjacentSpace = board.space(space, shifted: Direction.right()) else {
             let nextRow = space.row + 1
             let leftmostSpace = Space(row: nextRow, col: 1)
@@ -83,21 +96,47 @@ class ConnectFourInspector {
     //  same color.
     
     private func sequence(inDirection direction: Direction, origin: Space) -> [Space]? {
+        // Bail out if no piece is found at the origin
+        
         guard let originPiece = board.piece(at: origin) else { return nil }
+        
+        // Sanity check
+        
         guard let player = originPiece.player else { assertionFailure(); return nil }
+        
+        //
         
         var currentSpace = origin
         var sequence = [origin]
         
         while sequence.count < 4 {
+            // Bail out if no piece is found at the reference space
+            // TODO: write some tests, see if this is redundant
+            
             guard board.piece(at: currentSpace) != nil else { return nil }
+            
+            // Bail out if the next space can't be located
+            
             guard let otherSpace = board.space(currentSpace, shifted: direction) else { return nil }
+            
+            // Bail out if no piece is found at the next space
+            
             guard let otherPiece = board.piece(at: otherSpace) else { return nil }
+            
+            // Bail out if the next piece isn't the same color as this one
+            
             guard otherPiece.player === player else { return nil }
+            
+            // If we got this far, the sequence hasn't been invalidated
+            //  yet. Append rhe next space to the sequence array and
+            //  update the current space reference.
             
             sequence.append(otherSpace)
             currentSpace = otherSpace
         }
+        
+        // Return the sequence (if we haven't already been kicked out by
+        //  a 'guard' condition)
         
         return sequence
     }

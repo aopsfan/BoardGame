@@ -1,23 +1,10 @@
 import Foundation
 
-// TileDelta -- Describes any movement or change of a single tile
+// SpatialMap -- Aggregates changes in the state of the board
 
-class TileDelta {
-    var startSpace: Space
-    var endSpace: Space
+class SpatialMap {
     
-    init(startSpace: Space, endSpace: Space) {
-        self.startSpace = startSpace
-        self.endSpace = endSpace
-    }
-}
-
-
-// BoardDelta -- Aggregates changes in the state of the board
-
-class BoardDelta {
-    
-    // BoardDelta
+    // SpatialMap
     //  - moves
     //  - mergeSpaces
     //
@@ -25,7 +12,7 @@ class BoardDelta {
     //  > record(mergeFrom:to:)
     //  > iterate() {}
     
-    var moves = [TileDelta]()
+    var deltas = [SpaceDelta]()
     var mergeSpaces = [Space]()
     
     
@@ -37,9 +24,10 @@ class BoardDelta {
     // record(moveFrom:to:) -- Record a non-merging move
     
     func record(moveFrom startSpace: Space, to endSpace: Space) {
-        // Lookup any partial deltas that end where we're starting from
+        // Lookup any partial deltas that end where we're starting
+        // from
         
-        let referenceDeltas = tileDeltas(endSpace: startSpace)
+        let referenceDeltas = spaceDeltas(endSpace: startSpace)
         
         // Sanity check: we better only have one of these
         
@@ -52,8 +40,8 @@ class BoardDelta {
         } else {
             // If no delta was found, make a new one
             
-            let newDelta = TileDelta(startSpace: startSpace, endSpace: endSpace)
-            moves.append(newDelta)
+            let newDelta = SpaceDelta(startSpace: startSpace, endSpace: endSpace)
+            deltas.append(newDelta)
         }
     }
     
@@ -104,18 +92,18 @@ class BoardDelta {
         // Map moves to their end spaces, and wrap the result in a set
         //  to remove duplicates
         
-        return Set(moves.map { $0.endSpace })
+        return Set(deltas.map { $0.endSpace })
     }
     
     private func startSpaces(forEndSpace endSpace: Space) -> [Space] {
         // Select the deltas that end at the specified space, and return
         //  their start spaces
         
-        let deltas = tileDeltas(endSpace: endSpace)
+        let deltas = spaceDeltas(endSpace: endSpace)
         return deltas.map { $0.startSpace }
     }
     
-    private func tileDeltas(endSpace: Space) -> [TileDelta] {
-        return moves.filter { $0.endSpace == endSpace }
+    private func spaceDeltas(endSpace: Space) -> [SpaceDelta] {
+        return deltas.filter { $0.endSpace == endSpace }
     }
 }

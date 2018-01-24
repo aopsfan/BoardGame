@@ -15,7 +15,7 @@ extension Direction: CustomStringConvertible {
     }
 }
 
-extension BoardPiece: CustomStringConvertible {
+extension Piece: CustomStringConvertible {
     var description: String {
         if let player = self.player {
             return "\(player) [\(rawValue)]"

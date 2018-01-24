@@ -1,7 +1,6 @@
 import Foundation
 
-// ShiftMove -- Moves and merges all applicable tiles in the specified
-//  direction
+// ShiftMove -- Directional move in 2048
 
 class ShiftMove {
     
@@ -16,7 +15,7 @@ class ShiftMove {
     var board: Board
     let direction: Direction
     
-    var delta = BoardDelta()
+    var delta = SpatialMap()
     var score = 0
     
     init(onBoard board: Board, direction: Direction) {
@@ -24,13 +23,7 @@ class ShiftMove {
         self.direction = direction
     }
     
-    
-    
-    //////////
-    
-    
-    
-    // play() {} -- Try to shift every tile on the board
+    // play() {}
     
     func play(closure: (_ startSpaces: [Space], _ endSpace: Space) -> ()) {
         // Sort the board's filled spaces, starting with spaces that should be
@@ -55,7 +48,7 @@ class ShiftMove {
     
     
     
-    // shift(tileAt:) -- Try to shift a single tile
+    // shift(tileAt:) -- Try to move a single piece
     
     private func shift(tileAt startSpace: Space) {
         // Sanity check/lookup the indicated tile
@@ -83,7 +76,7 @@ class ShiftMove {
             
             let newTile = tile * 2
             
-            board.place(piece: BoardPiece(newTile), at: nextSpace)
+            board.place(piece: Piece(newTile), at: nextSpace)
             board.remove(pieceAt: startSpace)
             delta.record(mergeFrom: startSpace, to: nextSpace)
             
