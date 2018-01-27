@@ -19,11 +19,8 @@ protocol GameplayDelegate {
     func gameDidEndMoves()
     func gameDidEndTurn(player: Player?)
     
-    func gameDidPlace(piece: Piece, at space: Space)
-    func gameDidMove(pieceAt startSpace: Space, to endSpace: Space)
-    
-    func gameScoreDidChange(newScore: Int)
-    
+    func gameDidPlace(element: Any, at space: Space)
+    func gameDidMove(elementAt startSpace: Space, to endSpace: Space)
 }
 
 // _2048Delegate -- Subtype of GameplayDelegate
@@ -35,6 +32,7 @@ protocol _2048Delegate: GameplayDelegate {
     
     func gameDidMerge(_ topSpace: Space, and bottomSpace: Space,
                       to endSpace: Space, newValue: Int)
+    func gameScoreDidChange(newScore: Int)
     
 }
 

@@ -66,12 +66,6 @@ class GameScene: SKScene {
         addChild(board)
     }
     
-    
-    
-    //////////
-    
-    
-    
     // addElement(:imageName:animated:) -- Initialize the provided
     //  GameSceneElement's sprite and add it to the scene
     
@@ -172,9 +166,9 @@ class GameScene: SKScene {
     
 
     
-    //////////
-    
-    
+    // GameScene (private)
+    //  > positionOnBoard(ofRow:inCol:)
+    //  > element(forRow:inCol:)
     
     private func positionOnBoard(ofRow row: Int, inCol col: Int) -> CGPoint {
         // Do some math to convert a row and column to a point on the view

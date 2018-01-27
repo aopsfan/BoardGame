@@ -1,46 +1,43 @@
 import Foundation
-//
+
 // _2048 -- 2048 game model
 
-class _2048: Game {
+class _2048 {
     
     // _2048
+    //  - board
     //  = delegate
     //  - score
     //
     //  > prepareForPlay()
     //  > shiftBoard(:)
     
+    var board: Board<Int>
     let delegate: _2048Delegate
     var score = 0
     
-    init(rows: Int, cols: Int, delegate: _2048Delegate) {
+    init(delegate: _2048Delegate) {
         self.delegate = delegate
-        super.init(rows: rows, cols: cols)
+        self.board = Board<Int>(4, 4)
     }
 
     // prepareForPlay() -- Conduct any game setup not appropriate
     //  for an initializer. For the standard 4x4 game, all we have
     //  to do is place two tiles.
     
-    override func prepareForPlay() {
+    func prepareForPlay() {
         for _ in 1...2 { placeTile() }
     }
 
-    
-    
-    //////////
-    
-    
-
-    // shiftBoard(:) -- Move/merge all eligible pieces in the
-    //  specified direction. Place a new piece if necessary.
+    // shiftBoard(:) -- Move/merge all eligible tile in the
+    //  specified direction. Place a new tile if necessary.
 
     func shiftBoard(_ direction: Direction) {
         // Instantiate and play a shift move
 
         let shift = ShiftMove(onBoard: board, direction: direction)
         var moved = false
+        var merged = false
 
         shift.play { (startSpaces, endSpace) in
             // Sanity check
@@ -56,47 +53,54 @@ class _2048: Game {
                 // If the move partial is one-to-one, all we have to
                 //  do is notify the delegate
 
-                delegate.gameDidMove(pieceAt: startSpaces[0],
+                delegate.gameDidMove(elementAt: startSpaces[0],
                                      to: endSpace)
             } else if startSpaces.count == 2 {
                 // If the move partial is two-to-one, we have a
                 //  merge. First we obtain the resulting tile value
                 //  from the board.
 
-                guard let mergeValue = board.piece(at: endSpace)?.rawValue else {
+                guard let mergeValue = board.element(at: endSpace) else {
                     assertionFailure()
                     return
                 }
                 
                 // Handle the merge
                 
+                merged = true
                 handleMerge(from: startSpaces, to: endSpace,
                             mergeValue: mergeValue)
             }
         }
-
+        
         if moved {
-            // If any tile moved, update the score, notify the
-            //  delegate, and place a new tile
-
-            score += shift.score
-            delegate.gameScoreDidChange(newScore: score)
+            // If any tile moved, place a new tile
 
             // 15x20
             /*
              let numNewTiles = min(board.emptySpaces().count, 20)
              for _ in 1...numNewTiles { placeTile() } */
-
+            
             // 4x4
             placeTile()
         }
+
+        if merged {
+            // If any tiles merged, update the score and notify the
+            //  delegate
+            
+            score += shift.score
+            delegate.gameScoreDidChange(newScore: score)
+        }
     }
-
-
-
-    //////////
-
-
+    
+    
+    
+    // _2048 (private)
+    //  > handleMerge(from:to:mergeValue:)
+    //  > placeTile()
+    //  > randomSpace()
+    //  > randomTile()
     
     private func handleMerge(from startSpaces: [Space], to endSpace: Space, mergeValue: Int) {
         // Sort the two spaces according to their distance from the
@@ -116,11 +120,11 @@ class _2048: Game {
     private func placeTile() {
         // Place a random tile on the board and notify the gameplay delegate
 
-        let piece = Piece(randomTile())
+        let tile = randomTile()
         let space = randomSpace()
 
-        board.place(piece: piece, at: space)
-        delegate.gameDidPlace(piece: piece, at: space)
+        board.place(element: tile, at: space)
+        delegate.gameDidPlace(element: tile, at: space)
     }
 
     private func randomSpace() -> Space {

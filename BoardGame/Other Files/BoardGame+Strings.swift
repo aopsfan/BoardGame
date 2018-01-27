@@ -17,11 +17,7 @@ extension Direction: CustomStringConvertible {
 
 extension Piece: CustomStringConvertible {
     var description: String {
-        if let player = self.player {
-            return "\(player) [\(rawValue)]"
-        }
-        
-        return String(reflecting: rawValue)
+        return player?.description ?? "[piece]"
     }
 }
 

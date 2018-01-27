@@ -8,7 +8,7 @@ class ConnectFourInspector {
     // ConnectFourInspector
     //  = game
     //  = delegate
-    //  - board
+    //  = board
     //  = directions
     //
     //  > inspect()
@@ -16,7 +16,7 @@ class ConnectFourInspector {
     let game: ConnectFour
     let delegate: ConnectFourInspectorDelegate
     
-    var board: Board { return game.board }
+    var board: Board<Piece> { return game.board }
     
     let directions = [
         Direction.right(),
@@ -62,16 +62,16 @@ class ConnectFourInspector {
             //  using the sequence's first space, then notify the
             //  delegate
             
-            guard let winner = board.piece(at: sequence[0])?.player else { assertionFailure(); return }
+            guard let winner = board.element(at: sequence[0])?.player else { assertionFailure(); return }
             delegate.inspector(self, indicatesWinner: winner, winningSequence: sequence)
         }
     }
     
     
     
-    //////////
-    
-    
+    // ConnectFourInspector (private)
+    //  > space(following:)
+    //  > sequence(inDirection:origin:)
     
     // space(following:) -- Return the space to be inspected directly after
     //  the provided space. This will return the next space to the right, if
@@ -98,13 +98,13 @@ class ConnectFourInspector {
     private func sequence(inDirection direction: Direction, origin: Space) -> [Space]? {
         // Bail out if no piece is found at the origin
         
-        guard let originPiece = board.piece(at: origin) else { return nil }
+        guard let originPiece = board.element(at: origin) else { return nil }
         
         // Sanity check
         
         guard let player = originPiece.player else { assertionFailure(); return nil }
         
-        //
+        // Set some things up for the while loop
         
         var currentSpace = origin
         var sequence = [origin]
@@ -113,7 +113,7 @@ class ConnectFourInspector {
             // Bail out if no piece is found at the reference space
             // TODO: write some tests, see if this is redundant
             
-            guard board.piece(at: currentSpace) != nil else { return nil }
+            guard board.element(at: currentSpace) != nil else { return nil }
             
             // Bail out if the next space can't be located
             
@@ -121,7 +121,7 @@ class ConnectFourInspector {
             
             // Bail out if no piece is found at the next space
             
-            guard let otherPiece = board.piece(at: otherSpace) else { return nil }
+            guard let otherPiece = board.element(at: otherSpace) else { return nil }
             
             // Bail out if the next piece isn't the same color as this one
             

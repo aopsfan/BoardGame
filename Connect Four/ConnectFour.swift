@@ -2,7 +2,7 @@ import Foundation
 
 // ConnectFour -- Connect Four game model
 
-class ConnectFour: Game, ConnectFourInspectorDelegate {
+class ConnectFour: ConnectFourInspectorDelegate {
     
     // ConnectFourInspectorDelegate
     
@@ -16,14 +16,17 @@ class ConnectFour: Game, ConnectFourInspectorDelegate {
     
     // ConnectFour
     //  = players
+    //  - board
     //  = delegate
     //  - activePlayerIndex
     //
     //  = activePlayer
     //
+    //  > prepareForPlay()
     //  > dropPiece(inColumn:)
     
     let players: [Player]
+    var board: Board<Piece>
     let delegate: ConnectFourDelegate
     var activePlayerIndex = 0
     
@@ -37,28 +40,24 @@ class ConnectFour: Game, ConnectFourInspectorDelegate {
     init(rows: Int, cols: Int, delegate: ConnectFourDelegate) {
         self.delegate = delegate
         
+        // Standard Connect Four dimensions are 6x7
+        
+        self.board = Board<Piece>(6, 7)
+        
         // Set up a red and a blue player
         
         players = [
             Player(descriptor: .red),
             Player(descriptor: .blue)
         ]
-        
-        super.init(rows: rows, cols: cols)
     }
     
-    override func prepareForPlay() {
+    func prepareForPlay() {
         // Notify the delegate of the active player before gameplay
         //  starts
         
         delegate.gameDidStartTurn(player: activePlayer)
     }
-    
-    
-    
-    //////////
-    
-    
     
     // dropPiece(inColumn:) -- Place a tile
     
@@ -77,11 +76,11 @@ class ConnectFour: Game, ConnectFourInspectorDelegate {
             //  see an empty startSpaces array
             
             guard startSpaces.isEmpty else { assertionFailure(); return }
-            guard let piece = board.piece(at: endSpace) else { assertionFailure(); return }
+            guard let element = board.element(at: endSpace) else { assertionFailure(); return }
             
             // Notify the delegate of the new piece placement
             
-            delegate.gameDidPlace(piece: piece, at: endSpace)
+            delegate.gameDidPlace(element: element, at: endSpace)
             
             // Any iteration of this block implies that a piece was dropped
             
@@ -99,9 +98,9 @@ class ConnectFour: Game, ConnectFourInspectorDelegate {
     
     
     
-    //////////
-    
-    
+    // ConnectFour (private)
+    //  > checkForWinner()
+    //  > startNextTurn()
     
     private func checkForWinner() {
         // Instantiate a ConnectFourInspector with ourself as the

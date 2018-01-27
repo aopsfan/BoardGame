@@ -1,6 +1,12 @@
 import Foundation
 import SpriteKit
 
+// BoardUpdate: alias used in DropMove, ShiftMove, etc.
+
+typealias BoardUpdate = (_ startSpaces: [Space], _ endSpace: Space) -> ()
+
+
+
 // Simple Types //
 
 // Enums:
@@ -51,21 +57,10 @@ struct Space {
 // Piece -- Structure that describes something interactive on the board
 
 struct Piece {
-    let rawValue: Int
     let player: Player?
     
     var descriptor: PlayerDescriptor? {
         return player?.descriptor
-    }
-    
-    init(_ rawValue: Int) {
-        self.rawValue = rawValue
-        self.player = nil
-    }
-    
-    init(player: Player?) {
-        self.rawValue = 0
-        self.player = player
     }
 }
 

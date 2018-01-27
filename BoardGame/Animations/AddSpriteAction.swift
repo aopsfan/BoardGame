@@ -28,14 +28,11 @@ class AddSpriteAction: GameSceneSpriteAction {
     
     
     
-    //////////
-    
-    
-    
     // SpriteFadeInAction
     //  = position
     //  = node
     //  = zPosition
+    //  - animated
     
     let position: CGPoint
     let zPosition = CGFloat(10)

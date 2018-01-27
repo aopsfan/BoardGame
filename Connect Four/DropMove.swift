@@ -11,17 +11,19 @@ class DropMove {
     //
     //  > play() {}
     
-    let board: Board
+    let board: Board<Piece>
     let piece: Piece
     let column: Int
     
-    init(onBoard board: Board, inColumn column: Int, piece: Piece) {
+    init(onBoard board: Board<Piece>, inColumn column: Int, piece: Piece) {
         self.board = board
         self.column = column
         self.piece = piece
     }
     
-    func play(closure: (_ startSpaces: [Space], _ endSpace: Space) -> ()) {
+    // play() {} -- Drop a piece
+    
+    func play(closure: BoardUpdate) {
         // Try the bottom row first
         
         let bottomSpace = Space(row: 1, col: column)
@@ -30,19 +32,16 @@ class DropMove {
             // If an empty space is found, place a piece on the board
             //  and fire the callback
             
-            board.place(piece: piece, at: dropLocation)
+            board.place(element: piece, at: dropLocation)
             closure([], dropLocation)
         }
     }
     
     
     
-    //////////
-    
-    
-    
-    // nextEmptySpace(over:) -- Recursive function to determine drop
-    //  location given a starting space
+    // DropMove (private)
+    //  > nextEmptySpace(over:) -- Recursive function to determine drop
+    //    location given a starting space
     
     private func nextEmptySpace(over space: Space) -> Space? {
         if board.contains(emptySpaceAt: space) {

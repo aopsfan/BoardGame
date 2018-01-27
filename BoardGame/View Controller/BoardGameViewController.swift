@@ -1,6 +1,8 @@
 import UIKit
 import SpriteKit
 
+// BoardGameViewController -- Abstract VC
+
 class BoardGameViewController: UIViewController, GameplayDelegate {
     
     // GameplayDelegate baggage (because Swift 4 doesn't support
@@ -11,34 +13,17 @@ class BoardGameViewController: UIViewController, GameplayDelegate {
     func gameDidEndMoves() {}
     func gameDidEndTurn(player: Player?) {}
     
-    func gameDidPlace(piece: Piece, at space: Space) {
+    func gameDidPlace(element: Any, at space: Space) {
         assertionFailure() // Did you forget something?
     }
     
-    func gameDidMove(pieceAt startSpace: Space, to endSpace: Space) {
+    func gameDidMove(elementAt startSpace: Space, to endSpace: Space) {
         assertionFailure() // Did you forget something?
     }
-    
-    func gameScoreDidChange(newScore: Int) {}
 
     
     
-    //
-    
-    var scene: GameScene!
-    
-    // setUpGame(view:) -- Subclasses should override to initialize
-    //  the game and scene properties
-    
-    func setUpGame(view: SKView) {}
-    
-    
-    
-    //////////
-    
-    
-    
-    // UIViewController overrides
+    // UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,5 +49,18 @@ class BoardGameViewController: UIViewController, GameplayDelegate {
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
+    
+    
+    
+    // BoardGameViewController
+    //  - scene
+    //  > setUpGame(view:)
+    
+    var scene: GameScene!
+    
+    // setUpGame(view:) -- Subclasses should override to initialize
+    //  the game and scene properties
+    
+    func setUpGame(view: SKView) {}
+    
 }

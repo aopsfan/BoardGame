@@ -12,20 +12,20 @@ class ShiftMove {
     //
     //  > play() {}
     
-    var board: Board
+    var board: Board<Int>
     let direction: Direction
     
     var delta = SpatialMap()
     var score = 0
     
-    init(onBoard board: Board, direction: Direction) {
+    init(onBoard board: Board<Int>, direction: Direction) {
         self.board = board
         self.direction = direction
     }
     
-    // play() {}
+    // play() {} -- Attempt to shift each tile on the board
     
-    func play(closure: (_ startSpaces: [Space], _ endSpace: Space) -> ()) {
+    func play(closure: BoardUpdate) {
         // Sort the board's filled spaces, starting with spaces that should be
         //  handled first based on the direction
         
@@ -44,28 +44,23 @@ class ShiftMove {
     
     
     
-    //////////
-    
-    
-    
-    // shift(tileAt:) -- Try to move a single piece
+    // ShiftMove (private)
+    //  > shift(tileAt:)
+    //  > hasMerged(to:)
     
     private func shift(tileAt startSpace: Space) {
         // Sanity check/lookup the indicated tile
         
-        guard let tile = board.piece(at: startSpace)?.rawValue else { assertionFailure(); return }
+        guard let tile = board.element(at: startSpace) else { assertionFailure(); return }
         
         // Bail out if the next space isn't on the board
         
         guard let nextSpace = board.space(startSpace, shifted: direction) else { return }
-        
-        //
-        
-        let nextTile = board.piece(at: nextSpace)?.rawValue
+        let nextTile = board.element(at: nextSpace)
         
         // Try to move the tile over one space
         
-        if board.move(pieceAt: startSpace, toEmptySpace: nextSpace) {
+        if board.move(elementAt: startSpace, toEmptySpace: nextSpace) {
             // If the move succeeds, record it and try to shift again
             
             delta.record(moveFrom: startSpace, to: nextSpace)
@@ -76,8 +71,8 @@ class ShiftMove {
             
             let newTile = tile * 2
             
-            board.place(piece: Piece(newTile), at: nextSpace)
-            board.remove(pieceAt: startSpace)
+            board.place(element: newTile, at: nextSpace)
+            board.remove(elementAt: startSpace)
             delta.record(mergeFrom: startSpace, to: nextSpace)
             
             // Update the score
@@ -86,10 +81,9 @@ class ShiftMove {
         }
     }
     
-    // hasMerged(to:) -- Determine whether a tile has already merged to a
-    //  location
-    
     private func hasMerged(to space: Space) -> Bool {
+        // Determine whether the tile has already merged to a location
+        
         return delta.mergeSpaces.contains(space)
     }
 }

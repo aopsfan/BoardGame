@@ -1,17 +1,17 @@
 import Foundation
 import SpriteKit
 
-// BoardGameViewController -- Literally (NOT) the only view controller in the app
+// ConnectFourViewController -- Entry-point for Connect Four gameplay
 
 class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
     
-    // ConnectFourDelegate
+    // GameplayDelegate (inherited by ConnectFourDelegate)
     
-    func gameDidEnd(winner: Player, winningSequence: [Space]) {
-        assertionFailure() // just for testing...
-    }
-    
-    override func gameDidPlace(piece: Piece, at space: Space) {
+    override func gameDidPlace(element: Any, at space: Space) {
+        // Sanity check
+        
+        guard let piece = element as? Piece else { assertionFailure(); return }
+        
         // Compute the image name. For Connect Four, the images are
         //  named 'RedPiece' and 'BluePiece' (see Assets.xcassets).
         
@@ -20,6 +20,14 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
         // Ask the scene to animate the new image
         
         scene.moveElement(from: space, to: space, imageName: imageName, removeAfter: false)
+    }
+    
+    
+    
+    // ConnectFourDelegate
+    
+    func gameDidEnd(winner: Player, winningSequence: [Space]) {
+        assertionFailure() // just for testing...
     }
     
     
@@ -53,7 +61,7 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
         
         view.presentScene(scene)
         
-        // Populate the scene with dummy sprites so users can see the
+        // Populate the scene with dummy sprites so users can see a
         //  grid.
         
         for row in 1...rows { for col in 1...cols {
@@ -70,7 +78,6 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
     // ConnectFourViewController
     //  - game
     //
-    //  > setUpGame(view:)
     //  > handleTap(gesture:)
 
     var game: ConnectFour!

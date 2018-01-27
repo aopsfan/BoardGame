@@ -5,24 +5,32 @@ import SpriteKit
 
 class _2048ViewController: BoardGameViewController, _2048Delegate {
     
-    // _2048Delegate
+    // GameplayDelegate (inherited by _2048Delegate)
     
-    override func gameDidPlace(piece: Piece, at space: Space) {
+    override func gameDidPlace(element: Any, at space: Space) {
+        // Sanity check
+        
+        guard let tile = element as? Int else { assertionFailure(); return }
+        
         // Make a new GameSceneElement with the provided data and add it
         //  to the scene
         
         let tileElement = GameSceneElement(row: space.row, col: space.col)
-        let imageName = resourceName(forTileValue: piece.rawValue)
+        let imageName = resourceName(forTileValue: tile)
         
         scene.addElement(tileElement, imageName: imageName, animated: true)
     }
     
-    override func gameDidMove(pieceAt startSpace: Space, to endSpace: Space) {
+    override func gameDidMove(elementAt startSpace: Space, to endSpace: Space) {
         // Move the appropriate GameSceneElement. Since this isn't a
         //  merge, we won't need to remove any elements.
         
         scene.moveElement(from: startSpace, to: endSpace, imageName: nil, removeAfter: false)
     }
+    
+    
+    
+    // _2048Delegate
     
     func gameDidMerge(_ topSpace: Space, and bottomSpace: Space, to endSpace: Space, newValue: Int) {
         // Move the bottom element first. The scene will not change the
@@ -35,15 +43,19 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
         scene.moveElement(from: topSpace, to: endSpace, imageName: imageName, removeAfter: false)
     }
     
+    func gameScoreDidChange(newScore: Int) {
+        print("2048 score updated: \(newScore)")
+    }
+    
     
     
     // BoardGameViewController
     
     override func setUpGame(view: SKView) {
-        // 2048 is played on a 4x4 grid
+        game = _2048(delegate: self)
         
-        let rows = 4
-        let cols = 4
+        let rows = game.board.rows
+        let cols = game.board.columns
         
         // Add a gesture recognizer for each direction to the view
         
@@ -69,7 +81,6 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
         
         // Setup the game
         
-        game = _2048(rows: rows, cols: cols, delegate: self)
         game.prepareForPlay()
     }
     
@@ -103,9 +114,7 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
     
     
     
-    //////////
-    
-    
+    // _2048ViewController (private)
     
     private func resourceName(forTileValue value: Int) -> String {
         // 2048 resources are named 'Tile2', 'Tile16', etc. See

@@ -17,10 +17,10 @@ extension Space: Equatable, Hashable {
 extension Piece: Equatable, Hashable {
     var hashValue: Int {
         if let player = self.player {
-            return player.descriptor.hashValue ^ rawValue
+            return player.descriptor.hashValue
         }
         
-        return rawValue
+        return 0
     }
 }
 

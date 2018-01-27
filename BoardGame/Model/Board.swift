@@ -2,44 +2,31 @@ import Foundation
 
 // Board -- describes the state of the board
 
-class Board {
+class Board<Element> {
     
     // Board
     //  = rows
     //  = columns
+    //  - elements
     //
-    //  - tiles
-    //
-    //  > tile(at:)
     //  > space(:shifted:)
     //
+    //  > element(at:)
     //  - allSpaces [lazy]
     //  > emptySpaces()
     //  > filledSpaces()
     //  > contains(spaceAt:)
     //  > contains(emptySpaceAt:)
-    //  > contains(tileAt:)
+    //  > contains(elementAt:)
     
     let rows: Int
     let columns: Int
     
-    var pieces = [Space: Piece]()
+    var elements = [Space: Element]()
     
     init(_ rows: Int, _ columns: Int) {
         self.rows = rows
         self.columns = columns
-    }
-    
-    
-    
-    //////////
-    
-    
-    
-    // tile(at:) -- Lookup the provided space in the tiles dictionary
-    
-    func piece(at space: Space) -> Piece? {
-        return pieces[space]
     }
     
     // space(:shifted:) -- Return the space, shifted once in the provided
@@ -56,11 +43,9 @@ class Board {
         return contains(spaceAt: newSpace) ? newSpace : nil
     }
     
-    
-    
-    //////////
-    
-    
+    func element(at space: Space) -> Element? {
+        return elements[space]
+    }
     
     lazy var allSpaces: [Space] = { [unowned self] in
         // Build and return an array containing all spaces bounded by the preset
@@ -75,15 +60,15 @@ class Board {
         }()
     
     func emptySpaces() -> [Space] {
-        // Filter out all spaces where a tile is found
+        // Filter out all spaces where an element is found
         
-        return allSpaces.filter { !contains(pieceAt: $0) }
+        return allSpaces.filter { !contains(elementAt: $0) }
     }
     
     func filledSpaces() -> [Space] {
-        // Return only the spaces where a tile is found
+        // Return only the spaces where an element is found
         
-        return allSpaces.filter { contains(pieceAt: $0) }
+        return allSpaces.filter { contains(elementAt: $0) }
     }
     
     func contains(spaceAt space: Space) -> Bool {
@@ -93,59 +78,14 @@ class Board {
     }
     
     func contains(emptySpaceAt space: Space) -> Bool {
-        // Return whether no tile was found at the provided space
+        // Return whether no element was found at the provided space
         
         return emptySpaces().contains(space)
     }
     
-    func contains(pieceAt space: Space) -> Bool {
-        // Return whether any tile was found at the provided space
+    func contains(elementAt space: Space) -> Bool {
+        // Return whether any element was found at the provided space
         
-        return piece(at: space) != nil
+        return element(at: space) != nil
     }
 }
-
-
-
-// Board -- extended to provide mutating methods
-
-extension Board {
-    
-    // Board
-    //  > place(tile:at:)
-    //  > move(tileAt:to:)
-    //  > remove(tileAt:)
-    
-    // place(tile:at:) -- Assign a tile value to a particular space
-    
-    func place(piece: Piece, at space: Space) {
-        pieces[space] = piece
-    }
-    
-    // move(tileAt:toEmptySpace:) -- If the end space is not blocked, adjust
-    //  the tiles dictionary to reflect a moved tile. Return whether the move
-    //  was successful.
-    
-    func move(pieceAt startSpace: Space, toEmptySpace endSpace: Space) -> Bool {
-        // First, ensure that the end space is empty
-        
-        guard contains(emptySpaceAt: endSpace) else { return false }
-        
-        // Clear the tile at the starting space and assign its value to the
-        //  end space
-        
-        pieces[endSpace] = piece(at: startSpace)
-        pieces[startSpace] = nil
-        
-        // If we got this far, the tile must have moved. Return true.
-        
-        return true
-    }
-    
-    // remove(tileAt:) -- Clear the tile at the provided space
-    
-    func remove(pieceAt space: Space) {
-        pieces[space] = nil
-    }
-}
-

@@ -5,7 +5,7 @@ import Foundation
 class SpatialMap {
     
     // SpatialMap
-    //  - moves
+    //  - deltas
     //  - mergeSpaces
     //
     //  > record(moveFrom:to:)
@@ -14,12 +14,6 @@ class SpatialMap {
     
     var deltas = [SpaceDelta]()
     var mergeSpaces = [Space]()
-    
-    
-    
-    //////////
-    
-    
     
     // record(moveFrom:to:) -- Record a non-merging move
     
@@ -58,7 +52,7 @@ class SpatialMap {
     // iterate() {} -- Step through the delta, supplying packaged data to the
     //  caller via the block
     
-    func iterate(closure: (_ startSpaces: [Space], _ endSpace: Space) -> ()) {
+    func iterate(closure: BoardUpdate) {
         // Start by iterating over the end spaces, since the block is called
         //  only once per move/merge
         
@@ -84,9 +78,10 @@ class SpatialMap {
     
     
     
-    //////////
-    
-    
+    // SpatialMap (private)
+    //  > endSpaces()
+    //  > startSpaces(forEndSpace:)
+    //  > spaceDeltas(endSpace:)
     
     private func endSpaces() -> Set<Space> {
         // Map moves to their end spaces, and wrap the result in a set

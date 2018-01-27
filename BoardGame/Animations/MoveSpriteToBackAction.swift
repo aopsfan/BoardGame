@@ -6,14 +6,7 @@ import SpriteKit
 //  animation
 
 class MoveSpriteToBackAction: UpdateSpriteAction {
-    
     let backgroundZ = CGFloat(5)
-    
-    
-    
-    //////////
-    
-    
     
     override func run(completion: @escaping () -> ()) {
         // Sanity check -- if the sprite is being removed, we really shouldn't

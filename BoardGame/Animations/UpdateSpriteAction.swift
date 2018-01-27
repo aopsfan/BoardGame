@@ -33,10 +33,6 @@ class UpdateSpriteAction: GameSceneSpriteAction {
     
     
     
-    //////////
-    
-    
-    
     // SpriteMoveAction
     //  = position
     //  = texture
