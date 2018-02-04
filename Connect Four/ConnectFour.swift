@@ -26,7 +26,7 @@ class ConnectFour: ConnectFourInspectorDelegate {
     //  > dropPiece(inColumn:)
     
     let players: [Player]
-    var board: Board<Piece>
+    var board: Board<GamePiece>
     let delegate: ConnectFourDelegate
     var activePlayerIndex = 0
     
@@ -42,7 +42,7 @@ class ConnectFour: ConnectFourInspectorDelegate {
         
         // Standard Connect Four dimensions are 6x7
         
-        self.board = Board<Piece>(6, 7)
+        self.board = Board<GamePiece>(6, 7)
         
         // Set up a red and a blue player
         

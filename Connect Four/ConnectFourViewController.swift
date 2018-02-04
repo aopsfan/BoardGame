@@ -10,7 +10,7 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
     override func gameDidPlace(element: Any, at space: Space) {
         // Sanity check
         
-        guard let piece = element as? Piece else { assertionFailure(); return }
+        guard let piece = element as? GamePiece else { assertionFailure(); return }
         
         // Compute the image name. For Connect Four, the images are
         //  named 'RedPiece' and 'BluePiece' (see Assets.xcassets).

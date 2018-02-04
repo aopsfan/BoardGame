@@ -5,8 +5,6 @@ import SpriteKit
 
 typealias BoardUpdate = (_ startSpaces: [Space], _ endSpace: Space) -> ()
 
-
-
 // Simple Types //
 
 // Enums:
@@ -14,9 +12,10 @@ typealias BoardUpdate = (_ startSpaces: [Space], _ endSpace: Space) -> ()
 
 // Structs:
 // - Space
-// - Piece
+// - Vector
 
 // Classes:
+// - GamePiece
 // - Player
 // - Direction
 // - SpaceDelta
@@ -31,7 +30,7 @@ typealias BoardUpdate = (_ startSpaces: [Space], _ endSpace: Space) -> ()
 // PlayerDescriptor
 
 enum PlayerDescriptor {
-    case red, blue
+    case red, blue, white, black
 }
 
 
@@ -42,25 +41,49 @@ enum PlayerDescriptor {
 struct Space {
     let row: Int, col: Int
     
-    // distance(to:) -- Simple Pythagorean implementation
+    // distance(to:)
+    //  TESTME
     
     func distance(to other: Space) -> Double {
-        let rowChange = Double(row - other.row)
-        let colChange = Double(col - other.col)
-        
-        return sqrt(pow(rowChange, 2) + pow(colChange, 2))
+        let vectorDistance = other - self
+        return vectorDistance.magnitude()
     }
 }
 
 
 
-// Piece -- Structure that describes something interactive on the board
+// Vector -- Structure that describes a change in location
 
-struct Piece {
+struct Vector {
+    let x: Int
+    let y: Int
+    
+    init(_ x: Int, _ y: Int) {
+        self.x = x
+        self.y = y
+    }
+    
+    // magnitude() -- Simple Pythagorean implementation
+    
+    func magnitude() -> Double {
+        return sqrt(pow(Double(x), 2) + pow(Double(y), 2))
+    }
+}
+
+
+
+// GamePiece -- Describes a piece that can be "owned" by a particular
+//  player
+
+class GamePiece { // TODO: class/struct
     let player: Player?
     
     var descriptor: PlayerDescriptor? {
         return player?.descriptor
+    }
+    
+    init(player: Player?) {
+        self.player = player
     }
 }
 
@@ -75,8 +98,8 @@ class Player {
         self.descriptor = descriptor
     }
     
-    func piece() -> Piece {
-        return Piece(player: self)
+    func piece() -> GamePiece {
+        return GamePiece(player: self)
     }
 }
 
@@ -85,11 +108,11 @@ class Player {
 // Direction
 
 class Direction {
-    let step: (x: Int, y: Int)
+    let step: Vector
     let name: String
     
     init(_ name: String, xStep: Int, yStep: Int) {
-        step = (x: xStep, y: yStep)
+        step = Vector(xStep, yStep)
         self.name = name
     }
     
@@ -137,6 +160,32 @@ class GameSceneElement {
 
 
 //////////
+
+
+
+// Arithmetic
+//  TESTME
+
+func -(lhs: Space, rhs: Space) -> Vector {
+    let x = lhs.col - rhs.col
+    let y = lhs.row - rhs.row
+    
+    return Vector(x, y)
+}
+
+func +(lhs: Space, rhs: Vector) -> Space {
+    let row = lhs.row + rhs.y
+    let col = lhs.col + rhs.x
+    
+    return Space(row: row, col: col)
+}
+
+func +(lhs: Vector, rhs: Space) -> Space {
+    let row = lhs.y + rhs.row
+    let col = lhs.x + rhs.col
+    
+    return Space(row: row, col: col)
+}
 
 
 

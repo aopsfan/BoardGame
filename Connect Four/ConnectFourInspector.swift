@@ -16,7 +16,7 @@ class ConnectFourInspector {
     let game: ConnectFour
     let delegate: ConnectFourInspectorDelegate
     
-    var board: Board<Piece> { return game.board }
+    var board: Board<GamePiece> { return game.board }
     
     let directions = [
         Direction.right(),

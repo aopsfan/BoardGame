@@ -11,11 +11,11 @@ class DropMove {
     //
     //  > play() {}
     
-    let board: Board<Piece>
-    let piece: Piece
+    let board: Board<GamePiece>
+    let piece: GamePiece
     let column: Int
     
-    init(onBoard board: Board<Piece>, inColumn column: Int, piece: Piece) {
+    init(onBoard board: Board<GamePiece>, inColumn column: Int, piece: GamePiece) {
         self.board = board
         self.column = column
         self.piece = piece

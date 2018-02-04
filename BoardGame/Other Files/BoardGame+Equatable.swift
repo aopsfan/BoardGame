@@ -1,9 +1,10 @@
 import Foundation
 
-// Extend Space to conform to Equatable and Hashable. This allows us
-//  to store spaces in arrays and dictionaries.
-
 extension Space: Equatable, Hashable {
+    static func ==(lhs: Space, rhs: Space) -> Bool {
+        return lhs.row == rhs.row && lhs.col == rhs.col
+    }
+    
     var hashValue: Int {
         // A blogger who seemed to know what he was talking about condones
         //  this implementation.
@@ -14,7 +15,11 @@ extension Space: Equatable, Hashable {
     }
 }
 
-extension Piece: Equatable, Hashable {
+extension GamePiece: Equatable, Hashable {
+    static func ==(lhs: GamePiece, rhs: GamePiece) -> Bool {
+        return lhs.player === rhs.player && lhs.hashValue == rhs.hashValue
+    }
+    
     var hashValue: Int {
         if let player = self.player {
             return player.descriptor.hashValue
@@ -24,12 +29,13 @@ extension Piece: Equatable, Hashable {
     }
 }
 
-// ...I know, right??
-
-func ==(lhs: Space, rhs: Space) -> Bool {
-    return lhs.row == rhs.row && lhs.col == rhs.col
+extension Vector: Equatable, Hashable {
+    static func ==(lhs: Vector, rhs: Vector) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+    
+    var hashValue: Int {
+        return x ^ y
+    }
 }
 
-func ==(lhs: Piece, rhs: Piece) -> Bool {
-    return lhs.player === rhs.player && lhs.hashValue == rhs.hashValue
-}

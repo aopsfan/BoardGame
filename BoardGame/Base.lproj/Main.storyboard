@@ -25,6 +25,21 @@
             </objects>
             <point key="canvasLocation" x="1905" y="-116"/>
         </scene>
+        <!--Demo View Controller-->
+        <scene sceneID="3HN-kY-n37">
+            <objects>
+                <viewController id="YJO-39-o9X" customClass="DemoViewController" customModule="BoardGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AhI-xf-mbd" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Q2i-Ct-bPp"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k1b-h6-JJo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945" y="1001"/>
+        </scene>
         <!--Connect Four View Controller-->
         <scene sceneID="TFy-MY-4YV">
             <objects>
@@ -62,6 +77,14 @@
                                 <state key="normal" title="Connect Four"/>
                                 <connections>
                                     <segue destination="dpU-gB-qYH" kind="show" id="O00-ce-u7F"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fG-fc-R9W">
+                                <rect key="frame" x="144" y="340" width="88" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Chess Demo"/>
+                                <connections>
+                                    <segue destination="YJO-39-o9X" kind="show" id="Dcs-OE-tg2"/>
                                 </connections>
                             </button>
                         </subviews>

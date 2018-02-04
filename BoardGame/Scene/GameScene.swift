@@ -22,7 +22,7 @@ class GameScene: SKScene {
     
     let animationDuration = 0.2
     let elementSize = CGSize(width: 50, height: 50)
-    let elementSpacing = CGFloat(1)
+    let elementSpacing = CGFloat(10)
     var elements = [GameSceneElement]()
     let board = SKNode()
     
