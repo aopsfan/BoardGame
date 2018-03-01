@@ -17,7 +17,7 @@ extension Direction: CustomStringConvertible {
 
 extension GamePiece: CustomStringConvertible {
     var description: String {
-        return player?.description ?? "[piece]"
+        return player.descriptor.description + "Piece"
     }
 }
 
@@ -38,17 +38,14 @@ extension ChessPieceType: CustomStringConvertible {
     }
 }
 
-extension Player: CustomStringConvertible {
+extension PlayerDescriptor: CustomStringConvertible {
     var description: String {
-        var desc = "[Undescribed player]"
-        
-        switch descriptor {
-        case .red: desc = "Red"
-        case .blue: desc = "Blue"
-        case .white: desc = "White"
-        case .black: desc = "Black"
+        switch self {
+        case .black: return "Black"
+        case .white: return "White"
+        case .red: return "Red"
+        case .blue: return "Blue"
+        case .error: return "[unexpected player]"
         }
-        
-        return desc
     }
 }

@@ -21,11 +21,7 @@ extension GamePiece: Equatable, Hashable {
     }
     
     var hashValue: Int {
-        if let player = self.player {
-            return player.descriptor.hashValue
-        }
-        
-        return 0
+        return player.descriptor.hashValue
     }
 }
 

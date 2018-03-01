@@ -23,6 +23,10 @@ protocol GameplayDelegate {
     func gameDidMove(elementAt startSpace: Space, to endSpace: Space)
 }
 
+protocol ChessDelegate: GameplayDelegate {
+    func gamePiece(at startSpace: Space, didCapturePieceAt endSpace: Space)
+}
+
 // _2048Delegate -- Subtype of GameplayDelegate
 
 protocol _2048Delegate: GameplayDelegate {

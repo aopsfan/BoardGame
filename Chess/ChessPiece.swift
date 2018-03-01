@@ -4,8 +4,30 @@ enum ChessPieceType {
     case pawn, rook, bishop, queen, king, knight
 }
 
-protocol ChessPiece {
+enum PlayerDescriptor {
+    case white, black, red, blue, error
+}
+
+class Player {
+    let descriptor: PlayerDescriptor
+    
+    init(descriptor: PlayerDescriptor) {
+        self.descriptor = descriptor
+    }
+}
+
+protocol OwnedPiece {
     var player: Player { get }
+    var descriptor: PlayerDescriptor { get }
+}
+
+extension OwnedPiece {
+    var descriptor: PlayerDescriptor {
+        return player.descriptor
+    }
+}
+
+protocol ChessPiece: OwnedPiece {
     var type: ChessPieceType { get }
     
     func didMove()
@@ -22,9 +44,10 @@ extension ChessPiece {
 }
 
 class SteppingChessPiece: ChessPiece {
-    let steps: [Vector]
+    var player: Player
     let type: ChessPieceType
-    let player: Player
+    
+    let steps: [Vector]
     
     init(steps: [Vector], type: ChessPieceType, player: Player) {
         self.steps = steps
@@ -38,10 +61,11 @@ class SteppingChessPiece: ChessPiece {
 }
 
 class ScalingChessPiece: ChessPiece {
+    var player: Player
+    let type: ChessPieceType
+    
     let scalesOnAxis: Bool
     let scalesDiagonally: Bool
-    let type: ChessPieceType
-    let player: Player
     
     init(scalesOnAxis: Bool, scalesDiagonally: Bool, type: ChessPieceType, player: Player) {
         self.scalesOnAxis = scalesOnAxis
@@ -64,17 +88,18 @@ class ScalingChessPiece: ChessPiece {
 }
 
 class PawnChessPiece: ChessPiece {
+    var player: Player
+    let type = ChessPieceType.pawn
+    
     var moved = false
     let yStep: Int
-    let type = ChessPieceType.pawn
-    let player: Player
     
     init(yStep: Int, player: Player) {
         self.yStep = yStep
         self.player = player
     }
     
-    func markAsMoved() {
+    func didMove() {
         moved = true
     }
     

@@ -99,10 +99,7 @@ class ConnectFourInspector {
         // Bail out if no piece is found at the origin
         
         guard let originPiece = board.element(at: origin) else { return nil }
-        
-        // Sanity check
-        
-        guard let player = originPiece.player else { assertionFailure(); return nil }
+        let player = originPiece.player
         
         // Set some things up for the while loop
         

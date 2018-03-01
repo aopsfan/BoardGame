@@ -12,14 +12,9 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
         
         guard let piece = element as? GamePiece else { assertionFailure(); return }
         
-        // Compute the image name. For Connect Four, the images are
-        //  named 'RedPiece' and 'BluePiece' (see Assets.xcassets).
-        
-        let imageName = "\(piece.player!)Piece"
-        
         // Ask the scene to animate the new image
         
-        scene.moveElement(from: space, to: space, imageName: imageName, removeAfter: false)
+        scene.moveElement(from: space, to: space, imageName: piece.description, removeAfter: false)
     }
     
     
@@ -53,8 +48,8 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
         
         // Set up a blank game scene
         
-        scene = GameScene(rows: rows, cols: cols,
-                          size: view.bounds.size)
+        let appearance = GameSceneAppearance(rows: rows, cols: cols)
+        scene = GameScene(size: view.bounds.size, appearance: appearance)
         scene.scaleMode = .aspectFill
         
         // Present the blank scene
@@ -97,7 +92,7 @@ class ConnectFourViewController: BoardGameViewController, ConnectFourDelegate {
         // If this point translates to a column on the board, ask the
         //  game to drop a piece there
         
-        guard let col = scene.approximatedColumn(forPoint: point) else { return }
+        guard let col = scene.location(ofPoint: point)?.col else { return }
         game.dropPiece(inColumn: col)
     }
     

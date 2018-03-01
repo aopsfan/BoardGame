@@ -9,8 +9,13 @@
 /* Begin PBXBuildFile section */
 		BE0A5FBB20225211001FA0E4 /* Chess+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A5FBA20225211001FA0E4 /* Chess+helpers.swift */; };
 		BE0A5FBC20225211001FA0E4 /* Chess+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A5FBA20225211001FA0E4 /* Chess+helpers.swift */; };
-		BE3515C120262DB800DC4B21 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C020262DB800DC4B21 /* DemoViewController.swift */; };
-		BE3515C220262DB800DC4B21 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C020262DB800DC4B21 /* DemoViewController.swift */; };
+		BE3515C120262DB800DC4B21 /* ChessSandboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C020262DB800DC4B21 /* ChessSandboxViewController.swift */; };
+		BE3515C420278B9D00DC4B21 /* GameSceneElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C320278B9D00DC4B21 /* GameSceneElement.swift */; };
+		BE3515C520278B9D00DC4B21 /* GameSceneElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C320278B9D00DC4B21 /* GameSceneElement.swift */; };
+		BE3515C720278BA700DC4B21 /* GameSceneAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C620278BA700DC4B21 /* GameSceneAppearance.swift */; };
+		BE3515C820278BA700DC4B21 /* GameSceneAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C620278BA700DC4B21 /* GameSceneAppearance.swift */; };
+		BE4E8498203CEEAD004D48D8 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8497203CEEAD004D48D8 /* ChessBoard.swift */; };
+		BE4E8499203CEEAD004D48D8 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4E8497203CEEAD004D48D8 /* ChessBoard.swift */; };
 		BE5257F71FF8197500BDC75A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5257F61FF8197500BDC75A /* AppDelegate.swift */; };
 		BE5257FF1FF8197500BDC75A /* BoardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5257FE1FF8197500BDC75A /* BoardGameViewController.swift */; };
 		BE5258021FF8197500BDC75A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE5258001FF8197500BDC75A /* Main.storyboard */; };
@@ -32,6 +37,7 @@
 		BEB75CFA20111B2200828412 /* BoardGame+simple-types.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB75CF820111B2200828412 /* BoardGame+simple-types.swift */; };
 		BEB75CFC20112E5F00828412 /* _2048.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB75CFB20112E5F00828412 /* _2048.swift */; };
 		BEB75CFD20112E5F00828412 /* _2048.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB75CFB20112E5F00828412 /* _2048.swift */; };
+		BEB78BD22046423F0036B260 /* ChessSandboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3515C020262DB800DC4B21 /* ChessSandboxViewController.swift */; };
 		BEC3543C201C23290063E3F7 /* Board+mutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3543B201C23290063E3F7 /* Board+mutable.swift */; };
 		BEC3543D201C23290063E3F7 /* Board+mutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3543B201C23290063E3F7 /* Board+mutable.swift */; };
 		BED677B020056B230018306D /* AddSpriteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677AF20056B230018306D /* AddSpriteAction.swift */; };
@@ -39,6 +45,8 @@
 		BED677B320059B240018306D /* BoardGame+protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B120059B240018306D /* BoardGame+protocols.swift */; };
 		BED677B620059F470018306D /* UpdateSpriteAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B520059F470018306D /* UpdateSpriteAction.swift */; };
 		BED677B820059F4F0018306D /* MoveSpriteToBackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED677B720059F4F0018306D /* MoveSpriteToBackAction.swift */; };
+		BEE07C3420409CDF00DA872F /* Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE07C3320409CDF00DA872F /* Chess.swift */; };
+		BEE07C3520409CDF00DA872F /* Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE07C3320409CDF00DA872F /* Chess.swift */; };
 		BEF3A0FE1FFB16C000354075 /* ShiftMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A0FD1FFB16C000354075 /* ShiftMove.swift */; };
 		BEF3A0FF1FFB16C000354075 /* ShiftMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A0FD1FFB16C000354075 /* ShiftMove.swift */; };
 		BEF3A1011FFB16DC00354075 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF3A1001FFB16DC00354075 /* Board.swift */; };
@@ -71,7 +79,10 @@
 
 /* Begin PBXFileReference section */
 		BE0A5FBA20225211001FA0E4 /* Chess+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chess+helpers.swift"; sourceTree = "<group>"; };
-		BE3515C020262DB800DC4B21 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		BE3515C020262DB800DC4B21 /* ChessSandboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessSandboxViewController.swift; sourceTree = "<group>"; };
+		BE3515C320278B9D00DC4B21 /* GameSceneElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneElement.swift; sourceTree = "<group>"; };
+		BE3515C620278BA700DC4B21 /* GameSceneAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneAppearance.swift; sourceTree = "<group>"; };
+		BE4E8497203CEEAD004D48D8 /* ChessBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 		BE5257F31FF8197500BDC75A /* BoardGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE5257F61FF8197500BDC75A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE5257FE1FF8197500BDC75A /* BoardGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGameViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +109,7 @@
 		BED677B120059B240018306D /* BoardGame+protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BoardGame+protocols.swift"; sourceTree = "<group>"; };
 		BED677B520059F470018306D /* UpdateSpriteAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSpriteAction.swift; sourceTree = "<group>"; };
 		BED677B720059F4F0018306D /* MoveSpriteToBackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveSpriteToBackAction.swift; sourceTree = "<group>"; };
+		BEE07C3320409CDF00DA872F /* Chess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chess.swift; sourceTree = "<group>"; };
 		BEF3A0FD1FFB16C000354075 /* ShiftMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftMove.swift; sourceTree = "<group>"; };
 		BEF3A1001FFB16DC00354075 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		BEFB5D542005E71A0025BA43 /* ConnectFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectFour.swift; sourceTree = "<group>"; };
@@ -203,8 +215,11 @@
 		BE9BD263201CFA020074FE91 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				BE3515C020262DB800DC4B21 /* ChessSandboxViewController.swift */,
 				BE9BD264201CFB030074FE91 /* ChessPiece.swift */,
 				BE0A5FBA20225211001FA0E4 /* Chess+helpers.swift */,
+				BE4E8497203CEEAD004D48D8 /* ChessBoard.swift */,
+				BEE07C3320409CDF00DA872F /* Chess.swift */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -223,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				BE52582A1FF81A3B00BDC75A /* GameScene.swift */,
+				BE3515C320278B9D00DC4B21 /* GameSceneElement.swift */,
+				BE3515C620278BA700DC4B21 /* GameSceneAppearance.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -231,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				BE5257FE1FF8197500BDC75A /* BoardGameViewController.swift */,
-				BE3515C020262DB800DC4B21 /* DemoViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -404,6 +420,7 @@
 				BE0A5FBB20225211001FA0E4 /* Chess+helpers.swift in Sources */,
 				BED677B020056B230018306D /* AddSpriteAction.swift in Sources */,
 				BED677B220059B240018306D /* BoardGame+protocols.swift in Sources */,
+				BE3515C420278B9D00DC4B21 /* GameSceneElement.swift in Sources */,
 				BEF3A0FE1FFB16C000354075 /* ShiftMove.swift in Sources */,
 				BEC3543C201C23290063E3F7 /* Board+mutable.swift in Sources */,
 				BED677B620059F470018306D /* UpdateSpriteAction.swift in Sources */,
@@ -413,17 +430,20 @@
 				BEFB5D6620060C710025BA43 /* ConnectFourViewController.swift in Sources */,
 				BE921C5B2002BBAD0029FFB3 /* BoardGame+Strings.swift in Sources */,
 				BEFB5D5A2005EF650025BA43 /* DropMove.swift in Sources */,
+				BE4E8498203CEEAD004D48D8 /* ChessBoard.swift in Sources */,
 				BE52582B1FF81A3B00BDC75A /* GameScene.swift in Sources */,
 				BE5257FF1FF8197500BDC75A /* BoardGameViewController.swift in Sources */,
 				BE6E4F2120116830006D2C01 /* _2048ViewController.swift in Sources */,
 				BE9BD265201CFB030074FE91 /* ChessPiece.swift in Sources */,
+				BEE07C3420409CDF00DA872F /* Chess.swift in Sources */,
 				BEB75CF920111B2200828412 /* BoardGame+simple-types.swift in Sources */,
 				BE5257F71FF8197500BDC75A /* AppDelegate.swift in Sources */,
 				BEB75CF6201119DC00828412 /* SpatialMap.swift in Sources */,
 				BEF3A1011FFB16DC00354075 /* Board.swift in Sources */,
-				BE3515C120262DB800DC4B21 /* DemoViewController.swift in Sources */,
+				BE3515C120262DB800DC4B21 /* ChessSandboxViewController.swift in Sources */,
 				BEFB5D5D2005F1D50025BA43 /* ConnectFourInspector.swift in Sources */,
 				BEB75CFC20112E5F00828412 /* _2048.swift in Sources */,
+				BE3515C720278BA700DC4B21 /* GameSceneAppearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,12 +460,15 @@
 				BEFB5D562005E71A0025BA43 /* ConnectFour.swift in Sources */,
 				BEC3543D201C23290063E3F7 /* Board+mutable.swift in Sources */,
 				BE9BD266201CFB030074FE91 /* ChessPiece.swift in Sources */,
+				BE4E8499203CEEAD004D48D8 /* ChessBoard.swift in Sources */,
 				BEFB5D5E2005F1D50025BA43 /* ConnectFourInspector.swift in Sources */,
 				BE921C5D2002BBC10029FFB3 /* BoardGame+Equatable.swift in Sources */,
+				BEB78BD22046423F0036B260 /* ChessSandboxViewController.swift in Sources */,
 				BEB75CFD20112E5F00828412 /* _2048.swift in Sources */,
 				BED677B320059B240018306D /* BoardGame+protocols.swift in Sources */,
 				BEFB5D5B2005EF650025BA43 /* DropMove.swift in Sources */,
 				BE5258121FF8197600BDC75A /* SpatialMapTests.swift in Sources */,
+				BEE07C3520409CDF00DA872F /* Chess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,8 +476,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3515C820278BA700DC4B21 /* GameSceneAppearance.swift in Sources */,
+				BE3515C520278B9D00DC4B21 /* GameSceneElement.swift in Sources */,
 				BE52581D1FF8197600BDC75A /* BoardGameUITests.swift in Sources */,
-				BE3515C220262DB800DC4B21 /* DemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

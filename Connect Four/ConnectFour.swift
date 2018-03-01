@@ -2,7 +2,22 @@ import Foundation
 
 // ConnectFour -- Connect Four game model
 
-class ConnectFour: ConnectFourInspectorDelegate {
+protocol MultiplayerGame {
+    var players: [Player] { get set }
+    var turnIndex: Int { get set }
+    var activePlayer: Player { get }
+}
+
+extension MultiplayerGame {
+    var activePlayer: Player {
+        // Use the modulo operator to ensure that activePlayer
+        //  'wraps around'
+        
+        return players[turnIndex % players.count]
+    }
+}
+
+class ConnectFour: MultiplayerGame, ConnectFourInspectorDelegate {
     
     // ConnectFourInspectorDelegate
     
@@ -20,22 +35,14 @@ class ConnectFour: ConnectFourInspectorDelegate {
     //  = delegate
     //  - activePlayerIndex
     //
-    //  = activePlayer
-    //
     //  > prepareForPlay()
     //  > dropPiece(inColumn:)
     
-    let players: [Player]
+    var players: [Player]
+    var turnIndex = 0
+    
     var board: Board<GamePiece>
     let delegate: ConnectFourDelegate
-    var activePlayerIndex = 0
-    
-    var activePlayer: Player {
-        // Use the modulo operator to ensure that activePlayer
-        //  'wraps around'
-        
-        return players[activePlayerIndex % players.count]
-    }
     
     init(rows: Int, cols: Int, delegate: ConnectFourDelegate) {
         self.delegate = delegate
@@ -65,7 +72,7 @@ class ConnectFour: ConnectFourInspectorDelegate {
         // Setup: retreive an aptly colored piece and initialize a drop move
         //  in the appropriate column
         
-        let piece = activePlayer.piece()
+        let piece = GamePiece(player: activePlayer)
         let drop = DropMove(onBoard: board, inColumn: column, piece: piece)
         var moved = false
         
@@ -115,7 +122,7 @@ class ConnectFour: ConnectFourInspectorDelegate {
         //  that the active player has changed. Keep in mind that
         //  activePlayer is a computed, not a stored, property.
         
-        activePlayerIndex += 1
+        turnIndex += 1
         delegate.gameDidStartTurn(player: activePlayer)
     }
 }

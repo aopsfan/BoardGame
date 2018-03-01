@@ -7,31 +7,18 @@ typealias BoardUpdate = (_ startSpaces: [Space], _ endSpace: Space) -> ()
 
 // Simple Types //
 
-// Enums:
-// - PlayerDescriptor
-
 // Structs:
 // - Space
 // - Vector
 
 // Classes:
 // - GamePiece
-// - Player
 // - Direction
 // - SpaceDelta
-// - GameSceneElement
 
 
 
 //////////
-
-
-
-// PlayerDescriptor
-
-enum PlayerDescriptor {
-    case red, blue, white, black
-}
 
 
 
@@ -72,37 +59,15 @@ struct Vector {
 
 
 
-// GamePiece -- Describes a piece that can be "owned" by a particular
-//  player
+// GamePiece
 
-class GamePiece { // TODO: class/struct
-    let player: Player?
+class GamePiece: OwnedPiece {
+    var player: Player
     
-    var descriptor: PlayerDescriptor? {
-        return player?.descriptor
-    }
-    
-    init(player: Player?) {
+    init(player: Player) {
         self.player = player
     }
 }
-
-
-
-// Player
-
-class Player {
-    let descriptor: PlayerDescriptor
-    
-    init(descriptor: PlayerDescriptor) {
-        self.descriptor = descriptor
-    }
-    
-    func piece() -> GamePiece {
-        return GamePiece(player: self)
-    }
-}
-
 
 
 // Direction
@@ -139,23 +104,6 @@ class SpaceDelta {
         self.endSpace = endSpace
     }
 }
-
-
-
-// GameSceneElement -- Container for a sprite
-
-class GameSceneElement {
-    var row: Int
-    var col: Int
-    
-    var sprite: SKSpriteNode?
-    
-    init(row: Int, col: Int) {
-        self.row = row
-        self.col = col
-    }
-}
-
 
 
 

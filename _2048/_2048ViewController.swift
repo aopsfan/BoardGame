@@ -54,9 +54,6 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
     override func setUpGame(view: SKView) {
         game = _2048(delegate: self)
         
-        let rows = game.board.rows
-        let cols = game.board.columns
-        
         // Add a gesture recognizer for each direction to the view
         
         let up = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe))
@@ -74,7 +71,12 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
         
         // Setup and present the scene
         
-        scene = GameScene(rows: rows, cols: cols, size: view.bounds.size)
+        let size = view.bounds.size
+        let tileLength = min(size.width / 6, CGFloat(100)) // This is totally arbitrary
+        let appearance = GameSceneAppearance(rows: board.rows, cols: board.columns)
+        appearance.elementSize = CGSize(width: tileLength, height: tileLength)
+        
+        scene = GameScene(size: view.bounds.size, appearance: appearance)
         scene.scaleMode = .aspectFill
         
         view.presentScene(scene)
@@ -88,10 +90,12 @@ class _2048ViewController: BoardGameViewController, _2048Delegate {
     
     // _2048ViewController
     //  - game
+    //  = board
     //
     //  > handleSwipe(:)
     
     var game: _2048!
+    var board: Board<Int> { return game.board }
     
     // handleSwipe(gesture:) -- Shift the board based on the direction of the
     //  swipe
